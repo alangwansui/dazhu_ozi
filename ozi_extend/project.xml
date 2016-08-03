@@ -1,0 +1,141 @@
+<openerp>
+    <data>
+
+
+        <!--
+            <record id="project.group_project_user" model="res.groups">
+                <field name="name">PartTime Sale</field>
+                <field name="implied_ids" eval="[(6,0, [ref('base.group_user'),])]"/>
+                <field name="category_id" ref="base.module_category_project_management"/>
+            </record>
+
+            <record id="project.group_project_full_user" model="res.groups">
+                <field name="name">FullTime Sale</field>
+                <field name="implied_ids" eval="[(6,0, [ref('project.group_project_user'),])]"/>
+                <field name="category_id" ref="base.module_category_project_management"/>
+            </record>
+
+            <record id="project.group_project_manager" model="res.groups">
+                <field name="name">Sale Manager</field>
+                <field name="category_id" ref="base.module_category_project_management"/>
+                <field name="implied_ids" eval="[(6,0, [ref('project.group_project_full_user'),])]"/>
+                <field name="users" eval="[(4, ref('base.user_root'))]"/>
+            </record>
+        -->
+
+        <record id="project.act_project_project_2_project_task_all" model="ir.actions.act_window">
+            <field name="name">Total</field>
+            <field name="res_model">project.task</field>
+            <field name="view_mode">tree,form,calendar,gantt,graph</field>
+            <field name="context">{
+                'search_default_project_id': [active_id],
+                'default_project_id': active_id,
+                'active_test': False,
+                }
+            </field>
+            <field name="search_view_id" ref="project.view_task_search_form"/>
+        </record>
+        <record id="project.action_view_task" model="ir.actions.act_window">
+            <field name="name">Tasks</field>
+            <field name="res_model">project.task</field>
+            <field name="view_mode">tree,form,kanban,calendar,gantt,graph</field>
+            <field name="search_view_id" ref="project.view_task_search_form"/>
+        </record>
+        <record id="project.open_view_task_list_kanban" model="ir.actions.act_window.view">
+            <field name="sequence" eval="1"/>
+            <field name="view_mode">kanban</field>
+            <field name="act_window_id" ref="project.action_view_task"/>
+        </record>
+        <record id="project.open_view_task_list_tree" model="ir.actions.act_window.view">
+            <field name="sequence" eval="0"/>
+            <field name="view_mode">tree</field>
+            <field name="act_window_id" ref="project.action_view_task"/>
+        </record>
+
+        <!-- not need task menu
+        <menuitem action="project.action_view_task" id="project.menu_action_view_task"
+                  parent="project.menu_project_management" sequence="5"  groups="base.group_no_one"/>
+        -->
+
+        <record model="ir.ui.view" id="inob_project_tree_view">
+            <field name="name">project.project.tree</field>
+            <field name="model">project.project</field>
+            <field name="priority">0</field>
+            <field name="arch" type="xml">
+                <tree string="Project" create="false" edit="false">
+                    <field name="name" string="项目名称"/>
+                    <field name="x_suburb"/>
+                    <field name="x_region"/>
+                    <field name="x_project_address"/>
+                    <field name="x_show_address"/>
+                    <field name="x_show_date"/>
+                    <field name="x_price_range"/>
+                    <field name="x_deal_time"/>
+                    <field name="x_weixin_url"/>
+                    <field name="x_appointment_url"/>
+                    <field name="x_reservation_url"/>
+                    <field name="x_seafile_url"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="inob_project_form_view">
+            <field name="name">project.project.form</field>
+            <field name="model">project.project</field>
+            <field name="priority">0</field>
+            <field name="arch" type="xml">
+                <form string="Project">
+                    <header>
+                        <field name="state" widget="statusbar" statusbar_visible="open,close"
+                               statusbar_colors="{&quot;pending&quot;:&quot;blue&quot;}" readonly="1"/>
+                    </header>
+                    <sheet string="Project">
+                        <div class="oe_title">
+                            <field name="image_medium" widget="image"/>
+                        </div>
+                        <div class="oe_right oe_button_box" name="buttons" groups="base.group_user">
+                        </div>
+                        <group col="4">
+                            <group colspan="2">
+                                <field name="name" string="项目名称"/>
+                                <field name="x_suburb"/>
+                                <field name="x_region"/>
+                                <field name="x_project_address"/>
+                                <field name="x_show_address"/>
+                                <field name="x_show_date"/>
+                                <field name="x_price_range"/>
+                            </group>
+                            <group colspan="2">
+                                <field name="x_deal_time"/>
+                                <field name="x_weixin_url" widget="url"/>
+                                <field name="x_appointment_url" widget="url"/>
+                                <field name="x_reservation_url" widget="url"/>
+                                <field name="x_seafile_url" widget="url"/>
+                            </group>
+                        </group>
+                        <notebook invisible="1">
+                            <page string="项目简介" invisible="1">
+                                <group>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Project action -->
+        <record id="project.open_view_project_all" model="ir.actions.act_window">
+            <field name="name">Projects</field>
+            <field name="res_model">project.project</field>
+            <field name="view_type">form</field>
+            <field name="domain">[]</field>
+            <field name="view_mode">tree,form,kanban,gantt</field>
+            <field name="view_id" ref="inob_project_tree_view"/>
+            <field name="search_view_id" ref="project.view_project_project_filter"/>
+            <field name="context">{'search_default_current': 1}</field>
+        </record>
+
+
+    </data>
+</openerp>
