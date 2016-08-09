@@ -72,9 +72,11 @@
                     <field name="x_price_range"/>
                     <field name="x_deal_time"/>
                     <field name="x_weixin_url"/>
-                    <field name="x_appointment_url"/>
-                    <field name="x_reservation_url"/>
+                    <field name="x_appointment_url" invisible="1"/>
+                    <field name="x_reservation_url" invisible="1"/>
                     <field name="x_seafile_url" invisible="1"/>
+                    <button name="open_x_appointment_url" string="预约" type="object"/>
+                    <button name="open_x_reservation_url" string="订房" type="object"/>
                     <button name="open_x_seafile_url" string="SeaFile" type="object"/>
                 </tree>
             </field>

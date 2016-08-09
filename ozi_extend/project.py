@@ -65,6 +65,24 @@ class project_project(osv.osv):
 
     }
 
+    def open_x_appointment_url(self, cr, uid, ids, context=None):
+        project = self.browse(cr, uid, ids[0])
+        url = project.x_appointment_url
+        if not url:
+            return True
+        if 'http' not in url:
+            url = 'http://' + url
+        return self.open_url(url)
+
+    def open_x_reservation_url(self, cr, uid, ids, context=None):
+        project = self.browse(cr, uid, ids[0])
+        url = project.x_reservation_url
+        if not url:
+            return True
+        if 'http' not in url:
+            url = 'http://' + url
+        return self.open_url(url)
+
     def open_x_seafile_url(self, cr, uid, ids, context=None):
         project = self.browse(cr, uid, ids[0])
         url = project.x_seafile_url
@@ -73,6 +91,7 @@ class project_project(osv.osv):
         if 'http' not in url:
             url = 'http://' + url
         return self.open_url(url)
+
 
     def open_url(self, url):
         return {
