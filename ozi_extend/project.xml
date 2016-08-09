@@ -74,7 +74,8 @@
                     <field name="x_weixin_url"/>
                     <field name="x_appointment_url"/>
                     <field name="x_reservation_url"/>
-                    <field name="x_seafile_url"/>
+                    <field name="x_seafile_url" invisible="1"/>
+                    <button name="open_x_seafile_url" string="SeaFile" type="object"/>
                 </tree>
             </field>
         </record>

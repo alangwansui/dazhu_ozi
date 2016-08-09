@@ -65,3 +65,20 @@ class project_project(osv.osv):
 
     }
 
+    def open_x_seafile_url(self, cr, uid, ids, context=None):
+        project = self.browse(cr, uid, ids[0])
+        url = project.x_seafile_url
+        if not url:
+            return True
+        if 'http' not in url:
+            url = 'http://' + url
+        return self.open_url(url)
+
+    def open_url(self, url):
+        return {
+            'name': 'url',
+            'res_model': 'ir.actions.act_url',
+            'type': 'ir.actions.act_url',
+            'target': 'new',
+            'url': url,
+        }
